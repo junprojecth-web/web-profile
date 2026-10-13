@@ -1,0 +1,43 @@
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches: ["main"] # 만약 기본 브랜치명이 master라면 "master"로 수정
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare published site
+        run: |
+          mkdir -p _site/content/projects _site/assets/images/workhelper
+          cp index.html portfolio.js projects.json style.css _site/
+          cp content/projects/workhelper.md content/projects/mdlprj.md _site/content/projects/
+          cp assets/images/workhelper/main.png assets/images/workhelper/mycase.png assets/images/workhelper/aichat.png assets/images/workhelper/ocr.png _site/assets/images/workhelper/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
