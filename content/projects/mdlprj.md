@@ -4,7 +4,7 @@ category: ["머신러닝", "추천 시스템", "개인 프로젝트"]
 role: ""
 period: "기간 미기재"
 videoUrl: ""
-demoUrl: ""
+demoUrl: "https://aiplant-w3fwxydelqxs3gzegjwdms.streamlit.app/"
 githubUrl: "https://github.com/junprojecth-web/LMProject"
 summary: "국내 지역별 기후와 작물 생육조건을 분석해 재배 적합성과 수익성을 고려한 작물을 추천하는 머신러닝 프로젝트"
 highlights:
